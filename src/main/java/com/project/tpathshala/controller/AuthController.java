@@ -38,6 +38,7 @@ public class AuthController {
 	{
 		try
 		{
+			System.out.println("Hello");
 			Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 			User user = (User) authenticate.getPrincipal();
 			String accessToken = jwtTokenUtil.generateAccessToken(user);
