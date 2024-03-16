@@ -12,8 +12,8 @@ public class TpathshalaApplication {
 		SpringApplication.run(TpathshalaApplication.class, args);
 	}
 
-	@Bean
-	public ModelMapper modelMapper()
+    @Bean
+    ModelMapper modelMapper()
 	{
 		return new ModelMapper();
 	}
