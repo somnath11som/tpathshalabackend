@@ -52,7 +52,7 @@ public class Lead {
 	
 	private int assign_by;
 	
-	private int assign_on;
+	private Date assign_on;
 	
 	@Column(nullable = true)
 	private String status;
@@ -156,11 +156,13 @@ public class Lead {
 		this.assign_by = assign_by;
 	}
 
-	public int getAssign_on() {
+	
+
+	public Date getAssign_on() {
 		return assign_on;
 	}
 
-	public void setAssign_on(int assign_on) {
+	public void setAssign_on(Date assign_on) {
 		this.assign_on = assign_on;
 	}
 
@@ -180,9 +182,11 @@ public class Lead {
 		this.created_at = created_at;
 	}
 
+	
+
 	public Lead(int id, String name, @Email String email, String phone, String course_name, String lead_status,
 			String qualification, String lead_comes_from, String time_slot, String lead_comments, int assign_user_id,
-			int assign_by, int assign_on, String status, Date created_at) {
+			int assign_by, Date assign_on, String status, Date created_at) {
 		super();
 		this.id = id;
 		this.name = name;
