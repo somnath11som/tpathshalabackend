@@ -42,7 +42,14 @@ public class AuthController {
 			Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 			User user = (User) authenticate.getPrincipal();
 			String accessToken = jwtTokenUtil.generateAccessToken(user);
-            AuthResponse response = new AuthResponse(user.getEmail(), accessToken);
+//            AuthResponse response = new AuthResponse(user.getEmail(), accessToken);
+			AuthResponse response = new AuthResponse();
+			response.setAccesstoken(accessToken);
+			response.setEmail(user.getEmail());
+			response.setName(user.getName());
+			response.setPhone(user.getPhone());
+			response.setRole(user.getRole());
+            
             
             return ResponseEntity.ok().body(response);
 		}

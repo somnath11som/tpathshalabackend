@@ -30,17 +30,23 @@ public class LeadController {
 	LeadService leadService;
 	
 	@PostMapping("/save")
-	public ResponseEntity<LeadRequest> createUser(@Valid @RequestBody LeadRequest leadRequest)
+	public ResponseEntity<ApiResponse> createUser(@Valid @RequestBody LeadRequest leadRequest)
 	{
-		try
+		ApiResponse apiResponse = new ApiResponse();
+		int submitLead = leadService.createLead(leadRequest);
+		
+		if(submitLead == 1)
 		{
-			LeadRequest createLead = leadService.createLead(leadRequest);
-			return ResponseEntity.status(HttpStatus.CREATED).body(createLead);
+			apiResponse.setSuccess(true);
+			apiResponse.setMessage("Lead Added Successfuly");
 		}
-		catch(Exception e)
+		else
 		{
-			return ResponseEntity.internalServerError().build();
+			apiResponse.setSuccess(false);
+			apiResponse.setMessage("Something Went Wrong");
 		}
+		
+		return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
 		
 	}
 	
@@ -69,5 +75,12 @@ public class LeadController {
 	{
 		ApiListResponse asignedLead = leadService.asignedLead(pageNumber,pageSize,sortBy,sortDir);
 		return ResponseEntity.status(HttpStatus.OK).body(asignedLead);
+	}
+	
+	@GetMapping("/unasign-list")
+	public ResponseEntity<ApiListResponse> unAsignLeadList(@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber, @RequestParam(value="pageSize", defaultValue = "5", required = false) Integer pageSize, @RequestParam(value = "sortBy", defaultValue = "lead_id", required = false) String sortBy, @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir)
+	{
+		ApiListResponse unAsignedLead = leadService.unAsignedLead(pageNumber,pageSize,sortBy,sortDir);
+		return ResponseEntity.status(HttpStatus.OK).body(unAsignedLead);
 	}
 }

@@ -16,6 +16,7 @@ import com.project.tpathshala.exceptions.ResourceNotFoundException;
 import com.project.tpathshala.model.Lead;
 import com.project.tpathshala.model.User;
 import com.project.tpathshala.payload.ApiListResponse;
+import com.project.tpathshala.payload.ApiResponse;
 import com.project.tpathshala.payload.LeadRequest;
 import com.project.tpathshala.payload.UserCreateRequest;
 import com.project.tpathshala.repository.LeadRepository;
@@ -43,10 +44,20 @@ public class LeadServiceImpl implements LeadService {
 	private UserIdFromToken userIdFromToken;
 	
 	@Override
-	public LeadRequest createLead(LeadRequest lead) {
+	public int createLead(LeadRequest lead) {
 		// TODO Auto-generated method stub
-		Lead leadSave = leadRepository.saveAndFlush(dtoToLead(lead));
-		return LeadToDto(leadSave);
+		
+		try
+		{
+			leadRepository.saveAndFlush(dtoToLead(lead));
+			return 1;
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+			return 0;
+		}
+		
 	}
 
 	private Lead dtoToLead(LeadRequest leadRequest)
