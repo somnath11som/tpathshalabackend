@@ -28,6 +28,7 @@ public class ApplicationSecurityConfig {
 	
 	public static final String[] PUBLIC_URL = {
 			"/auth/login",
+			"/menu/list",
 			"/lead/save",
 			"/v3/api-docs/**",
 			"/v2/api-docs/**",
@@ -57,8 +58,7 @@ public class ApplicationSecurityConfig {
 	 		http.csrf(csrf -> csrf.disable())
 	 			.authorizeHttpRequests((authorizeHttpRequests) ->
 	 				authorizeHttpRequests
-	 				.requestMatchers(PUBLIC_URL).permitAll()
- 			 		.anyRequest().authenticated()
+ 			 		.anyRequest().permitAll()
  			 		
 	 			);
 	 		return http.build();
